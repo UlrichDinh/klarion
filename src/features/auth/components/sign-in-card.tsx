@@ -26,8 +26,8 @@ export const SignInCard = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "g@gmail.com",
-      password: "123",
+      email: "",
+      password: "",
     },
   });
 
