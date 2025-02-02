@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { loginSchema } from "../schemas";
+import { useLogin } from "../api/use-login";
 
 export const SignInCard = () => {
   const { mutate, isPending } = useLogin();
@@ -25,8 +26,8 @@ export const SignInCard = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "g@gmail.com",
+      password: "123",
     },
   });
 

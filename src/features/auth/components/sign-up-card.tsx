@@ -26,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { registerSchema } from "../schemas";
+import { useRegister } from "../api/use-register";
 
 export const SignUpCard = () => {
   const { mutate, isPending } = useRegister();
