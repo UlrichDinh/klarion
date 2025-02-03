@@ -41,7 +41,17 @@ const app = new Hono()
     return c.json({ success: true });
 
   })
+  // Add sessionMiddleware to protect this route, only authenticated users can logout
+  .post("/logout", sessionMiddleware, async (c) => {
+    const account = c.get("account");
 
+    deleteCookie(c, AUTH_COOKIE);
+    // Invalidate the session on the server side. 
+    // This ensures that the session token cannot be reused, even if it is stolen or leaked.
+    await account.deleteSession("current");
+
+    return c.json({ success: true });
+  });
 
 
 export default app;
