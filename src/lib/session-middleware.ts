@@ -56,6 +56,7 @@ export const sessionMiddleware = createMiddleware<AdditionalContext>(
     // Set the session token instead of admin key, restricted to the current user's permissions 
     client.setSession(session);
 
+
     const account = new Account(client);
     const databases = new Databases(client);
     const storage = new Storage(client);
