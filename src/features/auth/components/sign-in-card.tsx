@@ -26,13 +26,14 @@ export const SignInCard = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "g@gmail.com",
-      password: "123",
+      email: "",
+      password: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
     mutate({ json: values });
+    console.log({ values });
   };
 
   return (
@@ -40,9 +41,6 @@ export const SignInCard = () => {
       <CardHeader className="flex items-center justify-center text-center p-7">
         <CardTitle className="text-2xl">Welcome back!</CardTitle>
       </CardHeader>
-      <div className="px-7">
-        <DottedSeparator />
-      </div>
       <CardContent className="p-7">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -80,6 +78,7 @@ export const SignInCard = () => {
             />
             <Button
               disabled={isPending}
+              type="submit"
               size="lg" className="w-full">
               Login
             </Button>
