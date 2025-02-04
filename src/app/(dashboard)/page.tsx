@@ -1,6 +1,7 @@
 import { getCurrent } from "@/features/auth/action";
 import { CreateWorkspaceForm } from "@/features/workspaces/components/create-workspace-form";
 import { redirect } from "next/navigation";
+import DashboardLayout from "./layout";
 
 export default async function Home() {
   const user = await getCurrent();
