@@ -1,3 +1,5 @@
+'use client';
+
 import { z } from "zod";
 import Link from "next/link";
 
@@ -26,8 +28,8 @@ export const SignInCard = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "ulrich@gmail.com",
+      password: "123123123",
     },
   });
 
