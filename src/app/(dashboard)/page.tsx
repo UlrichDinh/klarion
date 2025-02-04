@@ -1,6 +1,7 @@
 import { getCurrent } from "@/features/auth/action";
 import { UserButton } from "@/features/auth/components/user-button";
 import { redirect } from "next/navigation";
+import DashboardLayout from "./layout";
 
 export default async function Home() {
   const user = await getCurrent();
@@ -9,7 +10,9 @@ export default async function Home() {
   }
   return (
     <div className="flex gap-4">
-      <UserButton />
+      <DashboardLayout>
+        <UserButton />
+      </DashboardLayout>
     </div>
   );
 }
