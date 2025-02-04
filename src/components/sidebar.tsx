@@ -14,7 +14,6 @@ export const Sidebar = () => {
         <p className="font-bold text-lg">Jira Clone</p>
       </div>
       <DottedSeparator className="my-4" />
-      <DottedSeparator className="my-4" />
       <Navigation />
       <DottedSeparator className="my-4" />
     </aside>
