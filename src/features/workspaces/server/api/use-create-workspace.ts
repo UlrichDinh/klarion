@@ -28,7 +28,6 @@ export const useCreateWorkspace = () => {
     },
     onError: (error: Error) => {
       console.log(error, 'error');
-
       toast.error(error.message || "Failed to create workspace");
     },
   });
