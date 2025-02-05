@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/select";
 import { WorkspaceAvatar } from "@/features/workspaces/components/workspace-avatar";
 import { useGetWorkspaces } from "@/features/workspaces/server/api/use-get-workspaces";
-// import { useWorkspaceId } from "@/features/workspaces/hooks/useGetWorkspaceId";
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-get-workspace-id";
 
 export const WorkspaceSwitcher = () => {
-  // const workspaceId = useWorkspaceId();
+  const workspaceId = useWorkspaceId();
   const { data: workspaces } = useGetWorkspaces();
 
   const onSelect = (id: string) => {
@@ -30,7 +30,7 @@ export const WorkspaceSwitcher = () => {
         />
       </div>
       <Select onValueChange={onSelect}
-      // value={workspaceId}
+        value={workspaceId}
       >
         <SelectTrigger className="w-full bg-neutral-200 font-medium p-1">
           <SelectValue placeholder="No workspace selected." />
