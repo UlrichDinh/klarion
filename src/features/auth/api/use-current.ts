@@ -1,27 +1,25 @@
 import { client } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 
-/**
- * Custom hook to fetch the current authenticated user's data.
- * Uses the react-query library to manage the query state.
- * 
- * @returns {object} The query object containing the current user's data, loading status, and error information.
- */
+interface ApiError {
+  message?: string;
+}
+
 export const useCurrent = () => {
-  const query = useQuery({
+  return useQuery({
     queryKey: ['current'],
     queryFn: async () => {
-      // Send a GET request to the client.api.auth.current endpoint
-      const response = await client.api.auth.current.$get()
+      const response = await client.api.auth.current.$get();
 
       if (!response.ok) {
-        return null
+        const errorData = (await response.json()) as ApiError;
+        throw new Error(errorData.message || "Failed to fetch current user data");
       }
 
-      const { data } = await response.json()
-      return data
-    }
+      const { data } = await response.json();
+      return data;
+    },
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
-
-  return query;
-}
+};
