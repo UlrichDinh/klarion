@@ -1,25 +1,21 @@
 import { client } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 
-interface ApiError {
-  message?: string;
-}
 
-export const useWorkspaces = () => {
+export const useGetWorkspaces = () => {
   return useQuery({
     queryKey: ['workspaces'],
     queryFn: async () => {
       const response = await client.api.workspaces.$get();
-      const json = await response.json();
 
       if (!response.ok) {
-        throw new Error((json as ApiError).message || "Failed to fetch workspaces");
+        const errorData = (await response.json()) as { message?: string };
+        throw new Error(errorData.message || "Failed to create workspace");
       }
-
       const { data } = await response.json();
+      console.log(data, 'data');
+
       return data;
     },
-    staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false,
   });
 };
