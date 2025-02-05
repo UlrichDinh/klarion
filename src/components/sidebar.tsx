@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { DottedSeparator } from "./dotted-separator";
 import { Navigation } from "./navigation";
+import { WorkspaceSwitcher } from "@/features/auth/components/workspace-switcher";
 
 export const Sidebar = () => {
   return (
@@ -13,6 +14,8 @@ export const Sidebar = () => {
         </Link>
         <p className="font-bold text-lg">Project Management</p>
       </div>
+      <DottedSeparator className="my-4" />
+      <WorkspaceSwitcher />
       <DottedSeparator className="my-4" />
       <Navigation />
       <DottedSeparator className="my-4" />
