@@ -53,10 +53,9 @@ const app = new Hono()
           name,
           userId: user.$id,
           imageUrl: uploadedImageUrl,
-          // inviteCode: generateInviteCode(6),
         }
       );
-
+      // create a member document for the user who created the workspace
       await databases.createDocument(DATABASE_ID, MEMBERS_ID, ID.unique(), {
         userId: user.$id,
         workspaceId: workspace.$id,
