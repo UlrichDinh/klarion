@@ -3,16 +3,35 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { createWorkspaceSchema } from "../schemas";
 import { DATABASE_ID, WORKSPACES_ID, IMAGES_BUCKET_ID, MEMBERS_ID } from "@/config";
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { MemberRole } from "@/features/members/types";
+import { generateInviteCode } from "@/lib/utils";
 
 const app = new Hono()
   .get("/", sessionMiddleware, async (c) => {
+    const user = c.get("user");
     const databases = c.get("databases");
+
+    const members = await databases.listDocuments(
+      DATABASE_ID,
+      MEMBERS_ID,
+      [Query.equal('userId', user.$id)])
+
+    if (members.total === 0) {
+      return c.json({ data: { documents: [], total: 0 } });
+    }
+
+    const workspaceIds = members.documents.map((member) => member.workspaceId);
+
     const workspaces = await databases.listDocuments(
       DATABASE_ID,
       WORKSPACES_ID,
+      [
+        Query.orderDesc("$createdAt"),
+        Query.contains("$id", workspaceIds),
+      ]
     );
+
     return c.json({ data: workspaces });
   })
   .post(
@@ -53,6 +72,7 @@ const app = new Hono()
           name,
           userId: user.$id,
           imageUrl: uploadedImageUrl,
+          inviteCode: generateInviteCode(6)
         }
       );
       // create a member document for the user who created the workspace
