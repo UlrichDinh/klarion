@@ -13,12 +13,16 @@ import {
 import { WorkspaceAvatar } from "@/features/workspaces/components/workspace-avatar";
 import { useGetWorkspaces } from "@/features/workspaces/server/api/use-get-workspaces";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-get-workspace-id";
+import { useRouter } from "next/navigation";
 
 export const WorkspaceSwitcher = () => {
   const workspaceId = useWorkspaceId();
+  const router = useRouter();
   const { data: workspaces } = useGetWorkspaces();
 
   const onSelect = (id: string) => {
+    router.push(`/workspaces/${id}`);
+
   };
 
   return (
