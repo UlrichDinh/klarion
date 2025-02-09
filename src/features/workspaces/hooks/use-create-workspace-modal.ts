@@ -1,9 +1,12 @@
+'use-client';
 import { useQueryState, parseAsBoolean } from "nuqs";
 
 export const useCreateWorkspaceModal = () => {
   const [isOpen, setIsOpen] = useQueryState(
     "create-workspace",
-    parseAsBoolean.withDefault(false).withOptions({ clearOnDefault: true }) // Clear query param when default value is set.
+    parseAsBoolean
+      .withDefault(false)
+      .withOptions({ clearOnDefault: true }) // Clear query param when default value is set.
   );
 
   const open = () => setIsOpen(true);

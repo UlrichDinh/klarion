@@ -25,7 +25,6 @@ export const WorkspaceSwitcher = () => {
 
   const onSelect = (id: string) => {
     router.push(`/workspaces/${id}`);
-
   };
 
   return (
@@ -37,8 +36,7 @@ export const WorkspaceSwitcher = () => {
         />
       </div>
       <Select onValueChange={onSelect}
-        value={workspaceId}
-      >
+        value={workspaceId}>
         <SelectTrigger className="w-full bg-neutral-200 font-medium p-1">
           <SelectValue placeholder="No workspace selected." />
         </SelectTrigger>
