@@ -9,13 +9,13 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky",
-    "pre-commit": "bun run format && bun run lint:fix && npm run type-check"
+    "prepare": "husky"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
+    "*.{js,ts,tsx,jsx}": [
+      "bun run format",
+      "bun run lint:fix",
+      "git add"
     ]
   },
   "dependencies": {
