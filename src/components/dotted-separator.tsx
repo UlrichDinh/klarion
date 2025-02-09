@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-interface DottedSeparatorProps {
+type DottedSeparatorProps = {
   className?: string;
   color?: string;
   height?: string;

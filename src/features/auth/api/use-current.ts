@@ -1,7 +1,7 @@
 import { client } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 
-interface ApiError {
+type ApiError = {
   message?: string;
 }
 

@@ -13,7 +13,6 @@ export const useGetWorkspaces = () => {
         throw new Error(errorData.message || "Failed to create workspace");
       }
       const { data } = await response.json();
-      console.log(data, 'data');
 
       return data;
     },

@@ -12,17 +12,19 @@ import {
 } from "@/components/ui/select";
 import { WorkspaceAvatar } from "@/features/workspaces/components/workspace-avatar";
 import { useGetWorkspaces } from "@/features/workspaces/server/api/use-get-workspaces";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-get-workspace-id";
+import { useGetWorkspaceId } from "@/features/workspaces/hooks/use-get-workspace-id";
 import { useRouter } from "next/navigation";
+import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/use-create-workspace-modal";
 
 export const WorkspaceSwitcher = () => {
-  const workspaceId = useWorkspaceId();
+  const workspaceId = useGetWorkspaceId();
+  const { open } = useCreateWorkspaceModal()
   const router = useRouter();
+
   const { data: workspaces } = useGetWorkspaces();
 
   const onSelect = (id: string) => {
     router.push(`/workspaces/${id}`);
-
   };
 
   return (
@@ -30,12 +32,11 @@ export const WorkspaceSwitcher = () => {
       <div className="flex items-center justify-between">
         <p className="text-xs uppercase text-neutral-500">Workspaces</p>
         <RiAddCircleFill
-          className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition"
+          onClick={open} className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition"
         />
       </div>
       <Select onValueChange={onSelect}
-        value={workspaceId}
-      >
+        value={workspaceId}>
         <SelectTrigger className="w-full bg-neutral-200 font-medium p-1">
           <SelectValue placeholder="No workspace selected." />
         </SelectTrigger>

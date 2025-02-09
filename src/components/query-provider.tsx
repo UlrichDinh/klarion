@@ -36,7 +36,7 @@ function getQueryClient() {
   }
 }
 
-interface QueryProviderProps {
+type QueryProviderProps = {
   children: React.ReactNode;
 }
 

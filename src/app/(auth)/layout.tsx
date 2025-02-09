@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 
-interface AuthLayoutProps {
+type AuthLayoutProps = {
   children: React.ReactNode;
 }
 

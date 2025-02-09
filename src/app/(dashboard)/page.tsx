@@ -1,5 +1,4 @@
-import { getCurrent } from "@/features/auth/action";
-import { CreateWorkspaceForm } from "@/features/workspaces/components/create-workspace-form";
+import { getCurrent } from "@/features/auth/queries";
 import { redirect } from "next/navigation";
 
 export const dynamic = 'force-dynamic'; // Add this line
@@ -11,7 +10,7 @@ export default async function Home() {
 
   return (
     <div>
-      <CreateWorkspaceForm />
+      Home
     </div>
   )
 }
