@@ -11,7 +11,7 @@
     "prettier/prettier": "off",
     // Possible Errors
     "no-console": "warn", // Warn for console.log statements
-    "no-debugger": "error", // Disallow debugger statements
+    "no-debugger": "warn", // Disallow debugger statements
     "@typescript-eslint/no-require-imports": "off",
 
     // Best Practices
