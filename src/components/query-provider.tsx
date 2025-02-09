@@ -1,12 +1,12 @@
 // In Next.js, this file would be called: app/providers.tsx
-"use client";
+'use client';
 
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
   isServer,
   QueryClient,
   QueryClientProvider,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -31,14 +31,16 @@ function getQueryClient() {
     // This is very important, so we don't re-make a new client if React
     // suspends during the initial render. This may not be needed if we
     // have a suspense boundary BELOW the creation of the query client
-    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    if (!browserQueryClient) {
+      browserQueryClient = makeQueryClient();
+    }
     return browserQueryClient;
   }
 }
 
 type QueryProviderProps = {
   children: React.ReactNode;
-}
+};
 
 export const QueryProvider = ({ children }: QueryProviderProps) => {
   // NOTE: Avoid useState when initializing the query client if you don't

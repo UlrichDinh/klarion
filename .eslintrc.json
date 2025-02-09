@@ -1,3 +1,34 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:prettier/recommended" // This should automatically include the prettier plugin and config
+  ],
+  "plugins": [
+    "prettier" // Make sure this is included in the plugins section
+  ],
+  "rules": {
+    // Possible Errors
+    "no-console": "warn", // Warn for console.log statements
+    "no-debugger": "error", // Disallow debugger statements
+    "@typescript-eslint/no-require-imports": "off",
+
+    // Best Practices
+    "eqeqeq": "error", // Require === and !==
+    "default-case": "error", // Require default case in switch statements
+
+    // Variables
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }], // Warn on unused variables, ignore underscore-prefixed ones
+    // Stylistic Issues
+    "quotes": ["error", "single"], // Enforce the use of single quotes
+    "semi": ["error", "always"], // Require semicolons at the end of statements
+    // "indent": ["error", 2], // Enforce 2-space indentation
+    // React Specific
+    "react/react-in-jsx-scope": "off", // No need to import React in Next.js
+    "react/prop-types": "off", // Disable prop-types since TypeScript is often used in Next.js projects
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ] // Allow JSX in these file types
+  }
 }

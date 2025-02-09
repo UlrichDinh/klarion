@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
-import { ImageIcon } from "lucide-react";
+import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { ImageIcon } from 'lucide-react';
 
-import { DottedSeparator } from "@/components/dotted-separator";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DottedSeparator } from '@/components/dotted-separator';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -17,16 +17,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 
-import { createWorkspaceSchema } from "@/features/workspaces/schemas";
-import { useCreateWorkspace } from "@/features/workspaces/server/api/use-create-workspace";
-import { useRouter } from "next/navigation";
+import { createWorkspaceSchema } from '@/features/workspaces/schemas';
+import { useCreateWorkspace } from '@/features/workspaces/server/api/use-create-workspace';
+import { useRouter } from 'next/navigation';
 
 type CreateWorkspaceFormProps = {
   onCancel?: () => void;
-}
+};
 
 export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
   const router = useRouter();
@@ -35,28 +35,31 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
   const form = useForm<z.infer<typeof createWorkspaceSchema>>({
     resolver: zodResolver(createWorkspaceSchema),
     defaultValues: {
-      name: "",
+      name: '',
       image: undefined,
     },
   });
 
   const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
-    mutate({ form: values }, {
-      onSuccess: ({ data }) => {
-        form.reset();
-        router.push(`/workspaces/${data.id}`);
-      },
-    });
+    mutate(
+      { form: values },
+      {
+        onSuccess: ({ data }) => {
+          form.reset();
+          router.push(`/workspaces/${data.$id}`);
+        },
+      }
+    );
   };
 
   // When a file is selected, update the form value.
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      form.setValue("image", file);
+      form.setValue('image', file);
     }
     // Reset input value to allow re-selecting the same file.
-    e.target.value = "";
+    e.target.value = '';
   };
 
   // Trigger file selection when the preview or placeholder is clicked.
@@ -65,18 +68,16 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
   };
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const imageField = form.watch("image");
+  const imageField = form.watch('image');
 
   useEffect(() => {
     if (imageField instanceof File) {
       const url = URL.createObjectURL(imageField);
       setPreviewUrl(url);
       return () => URL.revokeObjectURL(url);
-    }
-    else if (typeof imageField === "string") {
+    } else if (typeof imageField === 'string') {
       setPreviewUrl(imageField);
-    }
-    else {
+    } else {
       setPreviewUrl(null);
     }
   }, [imageField]);
@@ -154,7 +155,7 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                             onClick={() => {
                               field.onChange(null);
                               if (inputRef.current) {
-                                inputRef.current.value = "";
+                                inputRef.current.value = '';
                               }
                             }}
                           >

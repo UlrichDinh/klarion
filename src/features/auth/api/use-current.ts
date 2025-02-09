@@ -1,9 +1,9 @@
-import { client } from "@/lib/rpc";
-import { useQuery } from "@tanstack/react-query";
+import { client } from '@/lib/rpc';
+import { useQuery } from '@tanstack/react-query';
 
 type ApiError = {
   message?: string;
-}
+};
 
 export const useCurrent = () => {
   return useQuery({
@@ -13,7 +13,9 @@ export const useCurrent = () => {
 
       if (!response.ok) {
         const errorData = (await response.json()) as ApiError;
-        throw new Error(errorData.message || "Failed to fetch current user data");
+        throw new Error(
+          errorData.message || 'Failed to fetch current user data'
+        );
       }
 
       const { data } = await response.json();

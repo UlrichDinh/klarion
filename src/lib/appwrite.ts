@@ -1,9 +1,8 @@
-import "server-only"; //protect this file from being bundled in the client, avoid leaking sensitive information
+import 'server-only'; //protect this file from being bundled in the client, avoid leaking sensitive information
 
-import { Client, Account, Users, Databases } from "node-appwrite";
-import { cookies } from "next/headers";
-import { AUTH_COOKIE } from "@/features/auth/constants";
-
+import { Client, Account, Users, Databases } from 'node-appwrite';
+import { cookies } from 'next/headers';
+import { AUTH_COOKIE } from '@/features/auth/constants';
 
 export async function createSessionClient() {
   const client = new Client()
@@ -13,7 +12,7 @@ export async function createSessionClient() {
   const session = cookies().get(AUTH_COOKIE);
 
   if (!session || !session.value) {
-    throw new Error("Unauthorized");
+    throw new Error('Unauthorized');
   }
 
   client.setSession(session.value);

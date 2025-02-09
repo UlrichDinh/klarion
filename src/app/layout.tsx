@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
+import { QueryProvider } from '@/components/query-provider';
+import { Toaster } from '@/components/ui/sonner';
 
-import "./globals.css";
-import { QueryProvider } from "@/components/query-provider";
-import { Toaster } from "@/components/ui/sonner";
+import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Klarion",
-  description: "Project management application",
+  title: 'Klarion',
+  description: 'Project management application',
 };
 
 export default function RootLayout({
@@ -22,9 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryProvider>
-        <body
-          className={cn(inter.className, 'antialiased min-h-screen')}
-        >
+        <body className={cn(inter.className, 'antialiased min-h-screen')}>
           <Toaster />
           {children}
         </body>

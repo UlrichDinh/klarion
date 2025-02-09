@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
-import { Account, Client } from "node-appwrite";
-import { AUTH_COOKIE } from "./constants";
+import { cookies } from 'next/headers';
+import { Account, Client } from 'node-appwrite';
+import { AUTH_COOKIE } from './constants';
 
 export const getCurrent = async () => {
   try {
@@ -10,16 +10,15 @@ export const getCurrent = async () => {
 
     const session = cookies().get(AUTH_COOKIE);
 
-    if (!session) return null
+    if (!session) {
+      return null;
+    }
 
     client.setSession(session.value);
 
-
     const account = new Account(client);
     return await account.get();
-  } catch (error) {
-    console.log(error, 'at action.ts');
-
+  } catch {
     return null;
   }
-}
+};

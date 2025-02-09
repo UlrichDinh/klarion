@@ -1,0 +1,5 @@
+{
+  "**/*.{js,ts,tsx}": ["next lint --fix", "prettier --write"],
+  "**/*.ts?(x)": ["tsc --noEmit --skipLibCheck"],
+  "**/*.{json,md}": ["prettier --write"]
+}

@@ -1,11 +1,11 @@
 import { Navbar } from '@/components/navbar';
 import { Sidebar } from '@/components/sidebar';
 import { CreateWorkspaceModal } from '@/features/workspaces/components/create-workspace-modal';
-import React from 'react'
+import React from 'react';
 
 type DashboardLayoutProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className="min-h-screen">
@@ -25,4 +25,4 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   );
 };
 
-export default DashboardLayout 
+export default DashboardLayout;
