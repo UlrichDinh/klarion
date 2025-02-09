@@ -1,7 +1,10 @@
 import { sessionMiddleware } from '@/lib/session-middleware';
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
-import { createWorkspaceSchema, updateWorkspaceSchema } from '@/features/workspaces/schemas';
+import {
+  createWorkspaceSchema,
+  updateWorkspaceSchema,
+} from '@/features/workspaces/schemas';
 import {
   DATABASE_ID,
   WORKSPACES_ID,
@@ -86,17 +89,18 @@ const app = new Hono()
 
       return c.json({ data: workspace });
     }
-  ).patch(
-    "/:workspaceId",
+  )
+  .patch(
+    '/:workspaceId',
     sessionMiddleware,
-    zValidator("form", updateWorkspaceSchema),
+    zValidator('form', updateWorkspaceSchema),
     async (c) => {
-      const databases = c.get("databases");
-      const storage = c.get("storage");
-      const user = c.get("user");
+      const databases = c.get('databases');
+      const storage = c.get('storage');
+      const user = c.get('user');
 
       const { workspaceId } = c.req.param();
-      const { name, image } = c.req.valid("form");
+      const { name, image } = c.req.valid('form');
 
       const member = await getMember({
         databases,
@@ -105,7 +109,7 @@ const app = new Hono()
       });
 
       if (!member || member.role !== MemberRole.ADMIN) {
-        return c.json({ error: "Unauthorized" }, 401);
+        return c.json({ error: 'Unauthorized' }, 401);
       }
 
       let uploadedImageUrl: string | undefined;
@@ -124,7 +128,7 @@ const app = new Hono()
 
         uploadedImageUrl = `data:image/png;base64,${Buffer.from(
           arrayBuffer
-        ).toString("base64")}`;
+        ).toString('base64')}`;
       } else {
         uploadedImageUrl = image;
       }
