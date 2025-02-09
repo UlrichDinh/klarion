@@ -12,6 +12,12 @@
     "prepare": "husky",
     "pre-commit": "bun run format && bun run lint:fix && npm run type-check"
   },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "@hono/zod-validator": "^0.4.2",
     "@hookform/resolvers": "^3.10.0",
