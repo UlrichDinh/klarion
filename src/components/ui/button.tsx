@@ -39,6 +39,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  //eslint-disable-next-line 
   VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
