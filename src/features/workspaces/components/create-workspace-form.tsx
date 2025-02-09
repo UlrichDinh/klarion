@@ -22,12 +22,14 @@ import { Input } from "@/components/ui/input";
 
 import { createWorkspaceSchema } from "@/features/workspaces/schemas";
 import { useCreateWorkspace } from "@/features/workspaces/server/api/use-create-workspace";
+import { useRouter } from "next/navigation";
 
 type CreateWorkspaceFormProps = {
   onCancel?: () => void;
 }
 
 export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
+  const router = useRouter();
   const { mutate, isPending } = useCreateWorkspace();
   const inputRef = useRef<HTMLInputElement>(null);
   const form = useForm<z.infer<typeof createWorkspaceSchema>>({
@@ -39,7 +41,12 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
   });
 
   const onSubmit = (values: z.infer<typeof createWorkspaceSchema>) => {
-    mutate({ form: values });
+    mutate({ form: values }, {
+      onSuccess: ({ data }) => {
+        form.reset();
+        router.push(`/workspaces/${data.id}`);
+      },
+    });
   };
 
   // When a file is selected, update the form value.
