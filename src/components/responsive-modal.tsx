@@ -7,7 +7,7 @@ import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 interface ResponsiveModalProps {
   children: React.ReactNode;
   open: boolean;
-  onOpenChange: () => void;
+  onOpenChange: (_open: boolean) => void;
 }
 
 export const ResponsiveModal = ({
