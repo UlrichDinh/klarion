@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
-type WorkspaceAvatarProps {
+type WorkspaceAvatarProps = {
   image?: string;
   name: string;
   className?: string;
