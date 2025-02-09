@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { createWorkspaceSchema } from "@/features/workspaces/schemas";
 import { useCreateWorkspace } from "@/features/workspaces/server/api/use-create-workspace";
 
-interface CreateWorkspaceFormProps {
+type CreateWorkspaceFormProps {
   onCancel?: () => void;
 }
 
