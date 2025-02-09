@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
-import { z } from "zod";
+import { z } from 'zod';
 
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa6";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa6';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { DottedSeparator } from "@/components/dotted-separator";
-import { Button } from "@/components/ui/button";
+import { DottedSeparator } from '@/components/dotted-separator';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { registerSchema } from "@/features/auth/schemas";
-import { useRegister } from "@/features/auth/api/use-register";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { registerSchema } from '@/features/auth/schemas';
+import { useRegister } from '@/features/auth/api/use-register';
 
 export const SignUpCard = () => {
   const { mutate, isPending } = useRegister();
@@ -34,9 +34,9 @@ export const SignUpCard = () => {
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "Duong",
-      email: "g@mail.com",
-      password: "123123123",
+      name: 'Duong',
+      email: 'g@mail.com',
+      password: '123123123',
     },
   });
 
@@ -49,11 +49,11 @@ export const SignUpCard = () => {
       <CardHeader className="flex items-center justify-center text-center p-7">
         <CardTitle className="text-2xl">Sign Up</CardTitle>
         <CardDescription>
-          By signing up, you agree to our{" "}
+          By signing up, you agree to our{' '}
           <Link href="/privacy">
             <span className="text-blue-700">Privacy Policy</span>
-          </Link>{" "}
-          and{" "}
+          </Link>{' '}
+          and{' '}
           <Link href="/terms">
             <span className="text-blue-700">Terms of Service</span>
           </Link>
@@ -148,7 +148,7 @@ export const SignUpCard = () => {
       </div>
       <CardContent className="p-7 flex items-center justify-center">
         <p>
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link href="/sign-in">
             <span className="text-blue-700">Login</span>
           </Link>

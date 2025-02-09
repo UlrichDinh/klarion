@@ -1,13 +1,13 @@
-import { useMedia } from "react-use";
+import { useMedia } from 'react-use';
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Drawer, DrawerContent } from '@/components/ui/drawer';
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 
 interface ResponsiveModalProps {
   children: React.ReactNode;
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onOpenChange: () => void;
 }
 
 export const ResponsiveModal = ({
@@ -15,7 +15,7 @@ export const ResponsiveModal = ({
   open,
   onOpenChange,
 }: ResponsiveModalProps) => {
-  const isDesktop = useMedia("(min-width: 1024px)", true);
+  const isDesktop = useMedia('(min-width: 1024px)', true);
 
   if (isDesktop) {
     return (

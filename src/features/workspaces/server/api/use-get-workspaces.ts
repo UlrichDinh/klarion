@@ -1,6 +1,5 @@
-import { client } from "@/lib/rpc";
-import { useQuery } from "@tanstack/react-query";
-
+import { client } from '@/lib/rpc';
+import { useQuery } from '@tanstack/react-query';
 
 export const useGetWorkspaces = () => {
   return useQuery({
@@ -10,7 +9,7 @@ export const useGetWorkspaces = () => {
 
       if (!response.ok) {
         const errorData = (await response.json()) as { message?: string };
-        throw new Error(errorData.message || "Failed to create workspace");
+        throw new Error(errorData.message || 'Failed to create workspace');
       }
       const { data } = await response.json();
 

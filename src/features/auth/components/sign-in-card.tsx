@@ -1,26 +1,26 @@
 'use client';
 
-import { z } from "zod";
-import Link from "next/link";
+import { z } from 'zod';
+import Link from 'next/link';
 
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa6";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa6';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { DottedSeparator } from "@/components/dotted-separator";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DottedSeparator } from '@/components/dotted-separator';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { loginSchema } from "@/features/auth/schemas";
-import { useLogin } from "@/features/auth/api/use-login";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { loginSchema } from '@/features/auth/schemas';
+import { useLogin } from '@/features/auth/api/use-login';
 
 export const SignInCard = () => {
   const { mutate, isPending } = useLogin();
@@ -28,8 +28,8 @@ export const SignInCard = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "ulrich@gmail.com",
-      password: "123123123",
+      email: 'ulrich@gmail.com',
+      password: '123123123',
     },
   });
 
@@ -80,9 +80,7 @@ export const SignInCard = () => {
                 </FormItem>
               )}
             />
-            <Button
-              disabled={isPending}
-              size="lg" className="w-full">
+            <Button disabled={isPending} size="lg" className="w-full">
               Login
             </Button>
           </form>
@@ -116,7 +114,7 @@ export const SignInCard = () => {
       </div>
       <CardContent className="p-7 flex items-center justify-center">
         <p>
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?{' '}
           <Link href="/sign-up">
             <span className="text-blue-700">Sign Up</span>
           </Link>

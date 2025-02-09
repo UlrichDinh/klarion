@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
-}
+};
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   const pathname = usePathname();
-  const isSignIn = pathname === "/sign-in";
+  const isSignIn = pathname === '/sign-in';
 
   return (
     <main className="bg-neutral-100 min-h-screen">
@@ -23,8 +23,8 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
             <p className="font-bold text-lg">Project Management</p>
           </div>
           <Button asChild variant="secondary">
-            <Link href={isSignIn ? "/sign-up" : "/sign-in"}>
-              {isSignIn ? "Sign Up" : "Login"}
+            <Link href={isSignIn ? '/sign-up' : '/sign-in'}>
+              {isSignIn ? 'Sign Up' : 'Login'}
             </Link>
           </Button>
         </nav>

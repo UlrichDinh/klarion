@@ -1,1 +1,1 @@
-export const AUTH_COOKIE = "thinhvuong-pm-session";
+export const AUTH_COOKIE = 'thinhvuong-pm-session';

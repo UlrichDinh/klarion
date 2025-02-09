@@ -1,11 +1,11 @@
-import { Query } from "node-appwrite";
+import { Query } from 'node-appwrite';
 
-import { getMember } from "@/features/members/utils";
+import { getMember } from '@/features/members/utils';
 
-import { createSessionClient } from "@/lib/appwrite";
-import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
+import { createSessionClient } from '@/lib/appwrite';
+import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from '@/config';
 
-import { Workspace } from "@/features/workspaces/types";
+import { Workspace } from '@/features/workspaces/types';
 
 export const getWorkspaces = async () => {
   const { account, databases } = await createSessionClient();
@@ -13,7 +13,7 @@ export const getWorkspaces = async () => {
   const user = await account.get();
 
   const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
-    Query.equal("userId", user.$id),
+    Query.equal('userId', user.$id),
   ]);
 
   if (members.total === 0) {
@@ -23,8 +23,8 @@ export const getWorkspaces = async () => {
   const workspaceIds = members.documents.map((member) => member.workspaceId);
 
   const workspaces = await databases.listDocuments(DATABASE_ID, WORKSPACES_ID, [
-    Query.orderDesc("$createdAt"),
-    Query.contains("$id", workspaceIds),
+    Query.orderDesc('$createdAt'),
+    Query.contains('$id', workspaceIds),
   ]);
 
   return workspaces;
@@ -32,7 +32,7 @@ export const getWorkspaces = async () => {
 
 type GetWorkspaceProps = {
   workspaceId: string;
-}
+};
 
 export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
   const { account, databases } = await createSessionClient();
@@ -46,7 +46,7 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
   });
 
   if (!member) {
-    throw new Error("Unauthorized");
+    throw new Error('Unauthorized');
   }
 
   const workspace = await databases.getDocument<Workspace>(
@@ -60,7 +60,7 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
 
 type GetWorkspaceInfoProps = {
   workspaceId: string;
-}
+};
 
 export const getWorkspaceInfo = async ({
   workspaceId,

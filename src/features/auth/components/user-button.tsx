@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { Loader, LogOut } from "lucide-react";
+import { Loader, LogOut } from 'lucide-react';
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DottedSeparator } from "@/components/dotted-separator";
+} from '@/components/ui/dropdown-menu';
+import { DottedSeparator } from '@/components/dotted-separator';
 
-import { useLogout } from "@/features/auth/api/use-logout";
-import { useCurrent } from "@/features/auth/api/use-current";
+import { useLogout } from '@/features/auth/api/use-logout';
+import { useCurrent } from '@/features/auth/api/use-current';
 
 export const UserButton = () => {
   const { data: user, isLoading } = useCurrent();
@@ -34,7 +34,7 @@ export const UserButton = () => {
 
   const avatarFallback = name
     ? name.charAt(0).toUpperCase()
-    : email.charAt(0).toUpperCase() ?? "U";
+    : (email.charAt(0).toUpperCase() ?? 'U');
 
   return (
     <DropdownMenu modal={false}>
@@ -59,7 +59,7 @@ export const UserButton = () => {
           </Avatar>
           <div className="flex flex-col items-center justify-center">
             <p className="text-sm font-medium text-neutral-900">
-              {name || "User"}
+              {name || 'User'}
             </p>
             <p className="text-xs text-neutral-500">{email}</p>
           </div>
