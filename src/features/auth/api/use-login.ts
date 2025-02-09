@@ -16,9 +16,7 @@ export const useLogin = () => {
     mutationFn: async ({ json }) => {
       const response = await client.api.auth.login.$post({ json });
 
-      // Check if the response indicates an error
       if (!response.ok) {
-        // Assuming your API returns a JSON error with a "message" property.
         const errorData = (await response.json()) as { message?: string };
         throw new Error(errorData.message || "Login failed");
       }
