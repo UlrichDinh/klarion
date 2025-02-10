@@ -10,7 +10,7 @@
   "rules": {
     // Possible Errors
     "no-console": "warn", // Warn for console.log statements
-    "no-debugger": "warn", // Disallow debugger statements
+    "no-debugger": "error", // Disallow debugger statements
     "@typescript-eslint/no-require-imports": "off",
 
     // Best Practices
@@ -20,8 +20,8 @@
     // Variables
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }], // Warn on unused variables, ignore underscore-prefixed ones
     // Stylistic Issues
-    "quotes": ["Warn", "single"], // Enforce the use of single quotes
-    "semi": ["warn", "always"], // Require semicolons at the end of statements
+    "quotes": ["error", "single"], // Enforce the use of single quotes
+    "semi": ["error", "always"], // Require semicolons at the end of statements
     // "indent": ["error", 2], // Enforce 2-space indentation
     // React Specific
     "react/react-in-jsx-scope": "off", // No need to import React in Next.js
