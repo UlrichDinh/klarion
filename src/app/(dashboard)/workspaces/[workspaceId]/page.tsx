@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetWorkspaceId } from '@/features/workspaces/hooks/use-get-workspace-id';
+import { useGetWorkspaceId } from '@/features/workspaces/api/use-get-workspace-id';
 import React from 'react';
 
 const WorkspaceId = () => {
