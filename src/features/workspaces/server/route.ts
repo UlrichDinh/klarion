@@ -120,7 +120,7 @@ const app = new Hono()
           ID.unique(),
           image
         );
-
+        // generate a preview of the image
         const arrayBuffer = await storage.getFilePreview(
           IMAGES_BUCKET_ID,
           file.$id
@@ -130,6 +130,7 @@ const app = new Hono()
           arrayBuffer
         ).toString('base64')}`;
       } else {
+        // if the image is not a file, it means the user didn't change the image -> return the current image
         uploadedImageUrl = image;
       }
 
