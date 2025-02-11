@@ -3,14 +3,13 @@
 import { z } from 'zod';
 import Image from 'next/image';
 import { ArrowLeftIcon, ImageIcon } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { DottedSeparator } from '@/components/dotted-separator';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -29,15 +28,16 @@ import { useUpdateWorkspace } from '../api/use-update-workspace';
 import { useConfirm } from '@/features/workspaces/hooks/use-confirm';
 import { useDeleteWorkspace } from '../api/use-delete-workspace';
 
-interface EditWorkspaceFormProps {
+interface UpdateWorkspaceFormProps {
   onCancel?: () => void;
   initialValues: WorkspaceType;
 }
 
-export const EditWorkspaceForm = ({
+export const UpdateWorkspaceForm = ({
   onCancel,
   initialValues,
-}: EditWorkspaceFormProps) => {
+}: UpdateWorkspaceFormProps) => {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const router = useRouter();
   const { mutate, isPending } = useUpdateWorkspace();
   const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
@@ -83,12 +83,34 @@ export const EditWorkspaceForm = ({
     mutate({ form: finalValues, param: { workspaceId: initialValues.$id } });
   };
 
+  // When a file is selected, update the form value.
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       form.setValue('image', file);
     }
+    // Reset input value to allow re-selecting the same file.
+    e.target.value = '';
   };
+
+  // Trigger file selection when the preview or placeholder is clicked.
+  const handlePlaceholderClick = () => {
+    inputRef.current?.click();
+  };
+
+  const imageField = form.watch('image');
+
+  useEffect(() => {
+    if (imageField instanceof File) {
+      const url = URL.createObjectURL(imageField);
+      setPreviewUrl(url);
+      return () => URL.revokeObjectURL(url);
+    } else if (typeof imageField === 'string') {
+      setPreviewUrl(imageField);
+    } else {
+      setPreviewUrl(null);
+    }
+  }, [imageField]);
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -137,40 +159,37 @@ export const EditWorkspaceForm = ({
                   render={({ field }) => (
                     <div className="flex flex-col gap-y-2">
                       <div className="flex items-center gap-x-5">
-                        {field.value ? (
-                          <div className="size-[72px] relative rounded-md overflow-hidden">
+                        <div
+                          onClick={handlePlaceholderClick}
+                          className="relative w-[72px] h-[72px] cursor-pointer rounded-md overflow-hidden"
+                        >
+                          {previewUrl ? (
                             <Image
-                              src={
-                                field.value instanceof File
-                                  ? URL.createObjectURL(field.value)
-                                  : field.value
-                              }
-                              alt="Logo"
+                              src={previewUrl}
+                              alt="Workspace Icon"
                               fill
                               className="object-cover"
                             />
-                          </div>
-                        ) : (
-                          <Avatar className="size-[72px]">
-                            <AvatarFallback>
-                              <ImageIcon className="size-[36px] text-neutral-400" />
-                            </AvatarFallback>
-                          </Avatar>
-                        )}
+                          ) : (
+                            <div className="flex items-center justify-center w-full h-full bg-gray-200">
+                              <ImageIcon className="w-9 h-9 text-neutral-400" />
+                            </div>
+                          )}
+                        </div>
                         <div className="flex flex-col">
                           <p className="text-sm">Workspace Icon</p>
                           <p className="text-sm text-muted-foreground">
                             JPG, PNG, SVG or JPEG, max 1MB
                           </p>
                           <input
-                            className="hidden"
-                            accept=".jpg, .png, .jpeg, .svg"
                             type="file"
+                            accept=".jpg, .png, .jpeg, .svg"
                             ref={inputRef}
                             onChange={handleImageChange}
                             disabled={isPending}
+                            className="hidden"
                           />
-                          {field.value ? (
+                          {previewUrl ? (
                             <Button
                               variant="destructive"
                               type="button"
@@ -184,20 +203,9 @@ export const EditWorkspaceForm = ({
                                 }
                               }}
                             >
-                              Remove Image
+                              Remove
                             </Button>
-                          ) : (
-                            <Button
-                              variant="teritary"
-                              type="button"
-                              disabled={isPending}
-                              size="xs"
-                              className="w-fit mt-2"
-                              onClick={() => inputRef.current?.click()}
-                            >
-                              Upload Image
-                            </Button>
-                          )}
+                          ) : null}
                         </div>
                       </div>
                     </div>

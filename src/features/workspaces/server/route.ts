@@ -145,24 +145,29 @@ const app = new Hono()
     }
   )
   .delete('/:workspaceId', sessionMiddleware, async (c) => {
-    const databases = c.get('databases');
-    const user = c.get('user');
+    try {
+      const databases = c.get('databases');
+      const user = c.get('user');
 
-    const { workspaceId } = c.req.param();
+      const { workspaceId } = c.req.param();
 
-    const member = await getMember({
-      databases,
-      workspaceId,
-      userId: user.$id,
-    });
+      const member = await getMember({
+        databases,
+        workspaceId,
+        userId: user.$id,
+      });
 
-    if (!member || member.role !== MemberRole.ADMIN) {
-      return c.json({ error: 'Unauthorized' }, 401);
+      if (!member || member.role !== MemberRole.ADMIN) {
+        return c.json({ error: 'Unauthorized' }, 401);
+      }
+
+      await databases.deleteDocument(DATABASE_ID, WORKSPACES_ID, workspaceId);
+
+      return c.json({ data: { $id: workspaceId } }, 200);
+    } catch (error) {
+      console.error('Delete Error:', error);
+      return c.json({ error: 'Internal Server Error' }, 500);
     }
-
-    await databases.deleteDocument(DATABASE_ID, WORKSPACES_ID, workspaceId);
-
-    return c.json({ data: { $id: workspaceId } });
   });
 
 export default app;
