@@ -3,14 +3,14 @@
 import { z } from 'zod';
 import Image from 'next/image';
 import { ArrowLeftIcon, ImageIcon } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { DottedSeparator } from '@/components/dotted-separator';
-// import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -26,20 +26,28 @@ import { Input } from '@/components/ui/input';
 import { updateWorkspaceSchema } from '../schemas';
 import { WorkspaceType } from '../types';
 import { useUpdateWorkspace } from '../api/use-update-workspace';
+import { useConfirm } from '@/features/workspaces/hooks/use-confirm';
+import { useDeleteWorkspace } from '../api/use-delete-workspace';
 
-interface UpdateWorkspaceFormProps {
+interface EditWorkspaceFormProps {
   onCancel?: () => void;
   initialValues: WorkspaceType;
 }
 
-export const UpdateWorkspaceForm = ({
+export const EditWorkspaceForm = ({
   onCancel,
   initialValues,
-}: UpdateWorkspaceFormProps) => {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
+}: EditWorkspaceFormProps) => {
   const router = useRouter();
   const { mutate, isPending } = useUpdateWorkspace();
+  const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
+    useDeleteWorkspace();
+
+  const [DeleteDialog, confirmDelete] = useConfirm(
+    'Delete Workspace',
+    'This action cannot be undone.',
+    'destructive'
+  );
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -51,19 +59,20 @@ export const UpdateWorkspaceForm = ({
     },
   });
 
-  const imageField = form.watch('image');
+  const handleDelete = async () => {
+    const ok = await confirmDelete();
 
-  useEffect(() => {
-    if (imageField instanceof File) {
-      const url = URL.createObjectURL(imageField);
-      setPreviewUrl(url);
-      return () => URL.revokeObjectURL(url);
-    } else if (typeof imageField === 'string') {
-      setPreviewUrl(imageField);
-    } else {
-      setPreviewUrl(null);
-    }
-  }, [imageField]);
+    if (!ok) return;
+
+    deleteWorkspace(
+      { param: { workspaceId: initialValues.$id } },
+      {
+        onSuccess: () => {
+          window.location.href = '/';
+        },
+      }
+    );
+  };
 
   const onSubmit = (values: z.infer<typeof updateWorkspaceSchema>) => {
     const finalValues = {
@@ -71,14 +80,7 @@ export const UpdateWorkspaceForm = ({
       image: values.image instanceof File ? values.image : '',
     };
 
-    mutate(
-      { form: finalValues, param: { workspaceId: initialValues.$id } },
-      {
-        onSuccess: () => {
-          form.reset();
-        },
-      }
-    );
+    mutate({ form: finalValues, param: { workspaceId: initialValues.$id } });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,17 +88,11 @@ export const UpdateWorkspaceForm = ({
     if (file) {
       form.setValue('image', file);
     }
-    // Reset input value to allow re-selecting the same file.
-    e.target.value = '';
-  };
-
-  // Trigger file selection when the preview or placeholder is clicked.
-  const handlePlaceholderClick = () => {
-    inputRef.current?.click();
   };
 
   return (
     <div className="flex flex-col gap-y-4">
+      <DeleteDialog />
       <Card className="w-full h-full border-none shadow-none">
         <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
           <Button
@@ -141,37 +137,40 @@ export const UpdateWorkspaceForm = ({
                   render={({ field }) => (
                     <div className="flex flex-col gap-y-2">
                       <div className="flex items-center gap-x-5">
-                        <div
-                          onClick={handlePlaceholderClick}
-                          className="relative w-[72px] h-[72px] cursor-pointer rounded-md overflow-hidden"
-                        >
-                          {previewUrl ? (
+                        {field.value ? (
+                          <div className="size-[72px] relative rounded-md overflow-hidden">
                             <Image
-                              src={previewUrl}
-                              alt="Workspace Icon"
+                              src={
+                                field.value instanceof File
+                                  ? URL.createObjectURL(field.value)
+                                  : field.value
+                              }
+                              alt="Logo"
                               fill
                               className="object-cover"
                             />
-                          ) : (
-                            <div className="flex items-center justify-center w-full h-full bg-gray-200">
-                              <ImageIcon className="w-9 h-9 text-neutral-400" />
-                            </div>
-                          )}
-                        </div>
+                          </div>
+                        ) : (
+                          <Avatar className="size-[72px]">
+                            <AvatarFallback>
+                              <ImageIcon className="size-[36px] text-neutral-400" />
+                            </AvatarFallback>
+                          </Avatar>
+                        )}
                         <div className="flex flex-col">
                           <p className="text-sm">Workspace Icon</p>
                           <p className="text-sm text-muted-foreground">
                             JPG, PNG, SVG or JPEG, max 1MB
                           </p>
                           <input
-                            type="file"
+                            className="hidden"
                             accept=".jpg, .png, .jpeg, .svg"
+                            type="file"
                             ref={inputRef}
                             onChange={handleImageChange}
                             disabled={isPending}
-                            className="hidden"
                           />
-                          {previewUrl ? (
+                          {field.value ? (
                             <Button
                               variant="destructive"
                               type="button"
@@ -185,9 +184,20 @@ export const UpdateWorkspaceForm = ({
                                 }
                               }}
                             >
-                              Remove
+                              Remove Image
                             </Button>
-                          ) : null}
+                          ) : (
+                            <Button
+                              variant="teritary"
+                              type="button"
+                              disabled={isPending}
+                              size="xs"
+                              className="w-fit mt-2"
+                              onClick={() => inputRef.current?.click()}
+                            >
+                              Upload Image
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -214,8 +224,29 @@ export const UpdateWorkspaceForm = ({
           </Form>
         </CardContent>
       </Card>
+
+      <Card className="w-full h-full border-none shadow-none">
+        <CardContent className="p-7">
+          <div className="flex flex-col">
+            <h3 className="font-bold">Danger Zone</h3>
+            <p className="text-sm text-muted-foreground">
+              Deleting a workspace is a irreversible and will remove all
+              associated data.
+            </p>
+            <DottedSeparator className="py-7" />
+            <Button
+              className="mt-6 w-fit ml-auto"
+              size="sm"
+              variant="destructive"
+              type="button"
+              disabled={isPending || isDeletingWorkspace}
+              onClick={handleDelete}
+            >
+              Delete Workspace
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
-
-export default UpdateWorkspaceForm;
