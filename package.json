@@ -8,12 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "lint:fix": "eslint . --fix",
-    "prepare": "husky",
-    "pre-commit": "bun run format && bun run lint:fix && npm run type-check"
+    "lint:fix": "eslint --fix",
+    "prepare": "husky"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
+    "*.{js,ts,tsx,jsx}": [
       "prettier --write",
       "eslint --fix"
     ]

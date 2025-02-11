@@ -19,7 +19,7 @@ const buttonVariants = cva(
         ghost:
           'border-transparent shadow-none hover:bg-accent hover:text-accent-foreground',
         muted: 'bg-neutral-200 text-neutral-600 hover:bg-neutral-200/80',
-        tertiary:
+        teritary:
           'bg-blue-100 text-blue-600 border-transparent hover:bg-blue-200 shadow-none',
       },
       size: {
@@ -38,7 +38,11 @@ const buttonVariants = cva(
 );
 
 // eslint-disable-next-line
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> { asChild?: boolean }
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
