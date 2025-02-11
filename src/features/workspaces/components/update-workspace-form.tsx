@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { DottedSeparator } from '@/components/dotted-separator';
+// import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -48,6 +49,8 @@ export const UpdateWorkspaceForm = ({
     'This action cannot be undone.',
     'destructive'
   );
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -258,3 +261,5 @@ export const UpdateWorkspaceForm = ({
     </div>
   );
 };
+
+export default UpdateWorkspaceForm;
