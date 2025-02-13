@@ -130,7 +130,10 @@ export const UpdateWorkspaceForm = ({
     }
   }, [imageField]);
 
-  const fullInviteLink = `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
+  const fullInviteLink =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`
+      : '';
 
   const handleCopyInviteLink = () => {
     navigator.clipboard
