@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { useGetProject } from '@/features/projects/api/use-get-project';
 import { ProjectAvatar } from '@/features/projects/components/project.avatar';
 import { useGetProjectId } from '@/features/projects/hooks/use-get-project-id';
+import { TaskViewSwitcher } from '@/features/tasks/components/task-view-switcher';
 
 export const ProjectIdClient = () => {
   const projectId = useGetProjectId();
@@ -42,6 +43,7 @@ export const ProjectIdClient = () => {
           </Button>
         </div>
       </div>
+      <TaskViewSwitcher />
     </div>
   );
 };
