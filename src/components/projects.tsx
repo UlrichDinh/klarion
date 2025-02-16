@@ -6,7 +6,7 @@ import { RiAddCircleFill } from 'react-icons/ri';
 
 import { useGetProjects } from '@/features/projects/api/use-get-projects';
 import { useGetWorkspaceId } from '@/features/workspaces/hooks/use-get-workspace-id';
-import { ProjectAvatar } from '@/features/projects/components/project.avatar';
+import { ProjectAvatar } from '@/features/projects/components/project-avatar';
 import { useCreateProjectModal } from '@/features/projects/hooks/use-create-project-modal';
 import { cn } from '@/lib/utils';
 
