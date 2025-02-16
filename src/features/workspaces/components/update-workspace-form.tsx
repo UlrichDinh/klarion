@@ -26,7 +26,7 @@ import { Input } from '@/components/ui/input';
 import { updateWorkspaceSchema } from '../schemas';
 import { WorkspaceType } from '../types';
 import { useUpdateWorkspace } from '../api/use-update-workspace';
-import { useConfirm } from '@/features/workspaces/hooks/use-confirm';
+import { useConfirm } from '@/hooks/use-confirm';
 import { useDeleteWorkspace } from '../api/use-delete-workspace';
 import { useResetInviteCode } from '../api/use-reset-invitation-code';
 
