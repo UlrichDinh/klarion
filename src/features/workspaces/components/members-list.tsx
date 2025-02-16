@@ -5,7 +5,7 @@ import { ArrowLeft, MoreVerticalIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { MemberAvatar } from '@/features/members/components/member-avatar';
-import { useGetMembers } from '@/features/members/api/use-get-member';
+import { useGetMembers } from '@/features/members/api/use-get-members';
 import { useGetWorkspaceId } from '@/features/workspaces/hooks/use-get-workspace-id';
 import { useDeleteMember } from '@/features/members/api/use-delete-member';
 import { useUpdateMember } from '@/features/members/api/use-update-member';
