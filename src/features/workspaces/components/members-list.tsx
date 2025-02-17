@@ -32,6 +32,7 @@ export const MembersList = () => {
   );
 
   const { data } = useGetMembers({ workspaceId });
+
   const { mutate: deleteMember, isPending: isDeletingMember } =
     useDeleteMember();
   const { mutate: updateMember, isPending: isUpdatingMember } =

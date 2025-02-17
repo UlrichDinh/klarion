@@ -8,6 +8,8 @@ import { client } from '@/lib/rpc';
 type ResponseType = InferResponseType<(typeof client.api.tasks)['$post'], 200>;
 type RequestType = InferRequestType<(typeof client.api.tasks)['$post']>;
 
+type ErrorResponse = { error?: string };
+
 export const useCreateTask = () => {
   const queryClient = useQueryClient();
 
@@ -16,7 +18,8 @@ export const useCreateTask = () => {
       const response = await client.api.tasks.$post({ json });
 
       if (!response.ok) {
-        throw new Error('Failed to create task.');
+        const errorData = (await response.json()) as ErrorResponse;
+        throw new Error(errorData.error || 'Failed to create task.');
       }
 
       return await response.json();
@@ -25,8 +28,8 @@ export const useCreateTask = () => {
       toast.success('Task created.');
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
-    onError: () => {
-      toast.error('Failed to create task.');
+    onError: (error) => {
+      toast.error(error.message || 'Failed to create task.');
     },
   });
 
