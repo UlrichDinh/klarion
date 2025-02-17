@@ -52,6 +52,11 @@ export const CreateTaskForm = ({
     resolver: zodResolver(createTaskSchema.omit({ workspaceId: true })),
     defaultValues: {
       workspaceId,
+      name: '',
+      dueDate: undefined,
+      assigneeId: '',
+      status: undefined,
+      projectId: '',
     },
   });
 

@@ -1,18 +1,17 @@
-import { useQueryState, parseAsBoolean } from 'nuqs';
+'use client';
 
-export const useCreateTaskModal = () => {
-  const [isOpen, setIsOpen] = useQueryState(
-    'create-task',
-    parseAsBoolean.withDefault(false).withOptions({ clearOnDefault: true })
+import { ResponsiveModal } from '@/components/responsive-modal';
+
+import { CreateTaskFormWrapper } from './create-task-form-wrapper';
+
+import { useCreateTaskModal } from '../hooks/use-create-task-modal';
+
+export const CreateTaskModal = () => {
+  const { isOpen, setIsOpen, close } = useCreateTaskModal();
+
+  return (
+    <ResponsiveModal open={isOpen} onOpenChange={setIsOpen}>
+      <CreateTaskFormWrapper onCancel={close} />
+    </ResponsiveModal>
   );
-
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
-
-  return {
-    isOpen,
-    open,
-    close,
-    setIsOpen,
-  };
 };
