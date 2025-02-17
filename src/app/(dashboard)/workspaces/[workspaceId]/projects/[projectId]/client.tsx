@@ -10,12 +10,25 @@ import { useGetProject } from '@/features/projects/api/use-get-project';
 import { ProjectAvatar } from '@/features/projects/components/project-avatar';
 import { useGetProjectId } from '@/features/projects/hooks/use-get-project-id';
 import { TaskViewSwitcher } from '@/features/tasks/components/task-view-switcher';
+import { PageLoader } from '@/components/page-loader';
 
 export const ProjectIdClient = () => {
   const projectId = useGetProjectId();
-  const { data: project } = useGetProject({
+  const {
+    data: project,
+    isLoading,
+    isError,
+  } = useGetProject({
     projectId,
   });
+
+  if (isLoading) {
+    return <PageLoader />;
+  }
+
+  if (isError) {
+    return <PageError message="Error loading project." />;
+  }
 
   if (!project) {
     return <PageError message="Project not found." />;
