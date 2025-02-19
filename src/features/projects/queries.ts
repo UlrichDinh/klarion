@@ -7,7 +7,7 @@ type GetProjectProps = {
   projectId: string;
 };
 
-export const getWorkspace = async ({ projectId }: GetProjectProps) => {
+export const getProject = async ({ projectId }: GetProjectProps) => {
   const { account, databases } = await createSessionClient();
 
   const user = await account.get();
