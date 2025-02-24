@@ -26,7 +26,7 @@ type TasksState = {
 interface DataKanbanProps {
   data: Task[];
   onChange: (
-    tasks: { $id: string; status: TaskStatus; position: number }[]
+    _tasks: { $id: string; status: TaskStatus; position: number }[]
   ) => void;
 }
 
