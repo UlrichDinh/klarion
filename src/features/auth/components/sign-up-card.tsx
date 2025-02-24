@@ -2,8 +2,6 @@
 
 import { z } from 'zod';
 
-import { FcGoogle } from 'react-icons/fc';
-import { FaGithub } from 'react-icons/fa6';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -34,9 +32,9 @@ export const SignUpCard = () => {
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: 'Duong',
-      email: 'g@mail.com',
-      password: '123123123',
+      name: '',
+      email: '',
+      password: '',
     },
   });
 
@@ -123,26 +121,6 @@ export const SignUpCard = () => {
       <div className="px-7">
         <DottedSeparator />
       </div>
-      <CardContent className="p-7 flex flex-col gap-y-4">
-        <Button
-          disabled={isPending}
-          variant="secondary"
-          size="lg"
-          className="w-full"
-        >
-          <FcGoogle className="mr-2 size-5" />
-          Sign Up with Google
-        </Button>
-        <Button
-          disabled={isPending}
-          variant="secondary"
-          size="lg"
-          className="w-full"
-        >
-          <FaGithub className="mr-2 size-5" />
-          Sign Up with GitHub
-        </Button>
-      </CardContent>
       <div className="px-7">
         <DottedSeparator />
       </div>
