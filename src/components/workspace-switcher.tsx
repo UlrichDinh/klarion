@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { WorkspaceAvatar } from '@/features/workspaces/components/workspace-avatar';
-import { useGetWorkspaces } from '@/features/workspaces/server/api/use-get-workspaces';
+import { useGetWorkspaces } from '@/features/workspaces/api/use-get-workspaces';
 import { useGetWorkspaceId } from '@/features/workspaces/hooks/use-get-workspace-id';
 import { useRouter } from 'next/navigation';
 import { useCreateWorkspaceModal } from '@/features/workspaces/hooks/use-create-workspace-modal';
