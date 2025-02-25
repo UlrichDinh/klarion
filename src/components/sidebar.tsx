@@ -13,7 +13,7 @@ export const Sidebar = () => {
         <Link href="/">
           <Image src="/logo.svg" alt="logo" width={50} height={39} />
         </Link>
-        <p className="font-bold text-lg">Project Management</p>
+        <p className="font-bold text-lg">Klarion</p>
       </div>
       <DottedSeparator className="my-4" />
       <WorkspaceSwitcher />
