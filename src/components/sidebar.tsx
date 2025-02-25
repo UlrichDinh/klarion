@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { DottedSeparator } from './dotted-separator';
 import { Navigation } from './navigation';
-import { WorkspaceSwitcher } from '@/features/auth/components/workspace-switcher';
+import { WorkspaceSwitcher } from '@/components/workspace-switcher';
 import { Projects } from './projects';
 
 export const Sidebar = () => {

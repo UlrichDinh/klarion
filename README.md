@@ -21,6 +21,7 @@ This project serves as a template that can be further expanded into a fully func
 
 ![Calendar View](./public/images/calendar.png)
 ![Kanban View](./public/images/kanban.png)
+![Task View](./public/images/task.png)
 
 ## Technologies
 
