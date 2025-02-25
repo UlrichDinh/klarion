@@ -1,7 +1,10 @@
 ## Description
+
 This project is a lightweight project management platform designed for teams to efficiently organize their work. Users can create workspaces, manage projects and tasks, and assign responsibilities to team members. The platform features a Kanban board and calendar view for visualizing tasks and deadlines. It supports drag-and-drop functionality, ensuring real-time updates for seamless collaboration. OAuth authentication is included for secure and easy access.
 
 This project serves as a template that can be further expanded into a fully functional SaaS product with additional enterprise features.
+
+![Dashboard View](./public/images/dashboard.png)
 
 ### Key Features
 ✔ Workspace & Project Management – Organize tasks efficiently within teams
@@ -15,6 +18,9 @@ This project serves as a template that can be further expanded into a fully func
 ✔ OAuth Authentication – Secure login via third-party providers
 
 ✔ Scalable Architecture – Can be extended for enterprise use
+
+![Calendar View](./public/images/calendar.png)
+![Kanban View](./public/images/kanban.png)
 
 ## Technologies
 
