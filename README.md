@@ -33,6 +33,7 @@ This project serves as a template that can be further expanded into a fully func
 **Backend**:
 
 - Next.js API Routes – Backend logic and API endpoints
+- Hono - A lightweight, web framework that offers fast, minimal routing and middleware support.
 - Appwrite – Provides database, authentication, and authorization
 
 ## Getting Started
